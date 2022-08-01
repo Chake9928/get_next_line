@@ -6,13 +6,11 @@
 /*   By: okamototakeshi <okamototakeshi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:52:29 by okamototake       #+#    #+#             */
-/*   Updated: 2022/07/27 00:18:46 by okamototake      ###   ########.fr       */
+/*   Updated: 2022/08/01 19:30:24 by okamototake      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
-#include <fcntl.h>
 
 static char	*read_to_save(char *save, int fd)
 {
@@ -29,6 +27,7 @@ static char	*read_to_save(char *save, int fd)
 		if (read_size == -1)
 		{
 			free(buff);
+			free(save);
 			return (NULL);
 		}
 		buff[read_size] = '\0';
@@ -45,8 +44,10 @@ static char	*create_line(char *save)
 	size_t	i;
 
 	l = 0;
-	if (!save)
+	if (save[0] == '\0')
 		return (NULL);
+	// if (!save)
+	// 	return (NULL);こう書いてたらあかんかった。
 	while (save[l] != '\n' && save[l] != '\0')
 		l++;
 	if (save[l] == '\n')
@@ -84,9 +85,9 @@ static char	*update_save(char *save)
 	i = 0;
 	while (save[l])
 	{
+		l++;
 		updated_save[i] = save[l];
 		i++;
-		l++;
 	}
 	updated_save[i] = '\0';
 	free(save);
@@ -113,3 +114,29 @@ char	*get_next_line(int fd)
 	save = update_save(save);
 	return (line);
 }
+
+// int	main(void)
+// {
+// 	int		index;
+// 	//index:読み込み回数
+// 	int		fd;
+// 	char	*receiver;
+
+// 	fd = open("XXX.txt", O_RDONLY);
+// 	receiver = NULL;
+// 	index = 0;
+// 	while (1)
+// 	{
+// 		receiver = get_next_line(fd);
+// 		if (!receiver)
+// 		{
+// 			printf("EOF or ERROR\n");
+// 			break ;
+// 		}
+// 		printf("[%d]%s", index, receiver);
+// 		index ++;
+// 		free(receiver);
+// 	}
+// 	system("leaks a.out");
+// 	close(fd);
+// }

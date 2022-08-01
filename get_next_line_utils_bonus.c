@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okamototakeshi <okamototakeshi@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 16:52:25 by okamototake       #+#    #+#             */
-/*   Updated: 2022/08/01 19:26:56 by okamototake      ###   ########.fr       */
+/*   Created: 2022/07/28 22:52:13 by okamototake       #+#    #+#             */
+/*   Updated: 2022/08/01 19:26:34 by okamototake      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -88,48 +88,3 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	return (ptr);
 }
-
-/*
-while (s1[i++])
-	ptr[i] = s1[i];
-...segv
-
-while (s1[i])
-	ptr[i++] = s1[i++];
-...compile error
-*/
-
-/*
-libft_takokamo_ver
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*ptr;
-	size_t	i;
-	size_t	j;
-	size_t	total_len;
-
-	if (!s1 || !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	total_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	ptr = (char *)malloc(sizeof(char) * total_len);
-	if (ptr == NULL)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-		ptr[i++] = s2[j++];
-	ptr[i] = '\0';
-	free(s1);
-	return (ptr);
-}
-*/
